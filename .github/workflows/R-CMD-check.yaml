@@ -22,11 +22,6 @@ jobs:
       PTAXSIM_DB_PATH: ${{ github.workspace }}/ptaxsim.db
       R_KEEP_PKG_SOURCE: yes
 
-    # Required for OIDC access to S3
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,8 +44,6 @@ jobs:
 
       - name: Prepare PTAXSIM database
         uses: ./.github/actions/prepare-ptaxsim
-        with:
-          ASSUMED_ROLE: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME_ARN }}
 
       - name: Check R package
         uses: r-lib/actions/check-r-package@v2
